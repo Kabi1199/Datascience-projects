@@ -1,0 +1,155 @@
+---
+title: "PRACTICALCAT ONE"
+author: "BDATC01/1717/2022"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+Basics in R
+```{r}
+#R chunk 1
+# Create a data frame
+mydata <- data.frame(
+  age =c(2, 2.5, 3, 4, 4.5, 4.5, 5, 3, 6, 6.5),
+  mileage =c(22, 34, 33, 37, 40, 45, 49, 30, 58, 58)
+)
+# Display the data frame
+mydata
+```
+```{r}
+#R chunk 2
+# Load the dataset into R
+Loan <- read.csv("C:/Users/user/Downloads/bank-loan.csv")
+Loan
+# Display the first 5 rows of the dataset to check
+head(Loan,5)
+# Display the last 5 rows of the dataset to check
+tail(Loan,5)
+#Generate summary statistics of the data variables.
+summary(Loan)
+#Output the dimension of the dataset.
+dim(Loan)
+```
+```{r}
+#R chunk 3
+# Create  dataset manually
+Gender <- c("Female", "Female", "Female", "Male", "Male", "Female")
+Race <- c("Group B", "Group C", "Group B", "Group A", "Group C", "Group B")
+Lunch <- c("Standard", "Standard", "Standard", "Free", "Standard", "Standard")
+PrepCourse <- c("None", "Completed", "None", "None", "None", "None")
+StatisticsScore <- c(72, 69, 90, 47, 76, 71)
+ReadingScore <- c(72, 90, 95, 57, 78, 83)
+WritingScore <- c(74, 88, 93, 44, 75, 78)
+# Create a data frame from the vectors
+mydata <- data.frame(Gender, Race, Lunch, PrepCourse, StatisticsScore, ReadingScore, WritingScore)
+
+# Output the data frame
+
+#. Output the first 5 rows of the data.
+head(mydata,5)
+#Filter observations for female students.
+# Filter for female students
+female_students <- subset(mydata, Gender == "Female")
+
+# Display the filtered data
+print(female_students)
+#Sort the observations using the Statistics Scores in ascending order and Reading Scores in descending order
+# Sort by Statistics Score (ascending) and then Reading Score (descending)
+new_data <- mydata[order(mydata$StatisticsScore, -mydata$ReadingScore), ]
+# Display the sorted data
+print(new_data)
+# Create a new column titled "Total Score" that calculates the total score for each student in the three subjects
+# Create a new column 'Total Score'
+mydata$TotalScore <- mydata$StatisticsScore + mydata$ReadingScore + mydata$WritingScore
+mydata$TotalScore
+# Display the updated data frame
+print(mydata)
+#Perform a correlation between Statistics Score and Writing Score and plot a scatter plot of the two variables
+# Perform correlation between Statistics Score and Writing Score
+correlation <- cor(mydata$StatisticsScore, mydata$WritingScore)
+
+# Display the correlation
+print(correlation)
+# Scatter plot of Statistics Score vs Writing Score
+#using plot()
+plot(mydata$StatisticsScore, mydata$WritingScore, 
+     main = "Scatter Plot of Statistics Score vs Writing Score", 
+     xlab = "Statistics Score", ylab = "Writing Score",col="black" ,pch = 19)
+#Plot a histogram of the Statistic Score
+# Plot a histogram of the Statistics Score
+hist(mydata$StatisticsScore, 
+     main = "Histogram of Statistics Score", 
+     xlab = "Statistics Score", 
+     col = "lightblue", 
+     border = "black")
+```
+DEALING WITH MATRICS 
+```{r}
+#R chunk 4
+#Consider the set of data 5, 0, 6, 1, 3, 5, 9, 5, 7, 1, 5, 3.
+# Input the data into R and forms a 3 Ö 4 matrix named Mat1.
+data<-c(5, 0, 6, 1, 3, 5, 9, 5, 7, 1, 5, 3)
+data
+#Create a 3*4 matrix
+Mat1<-matrix(data,nrow=3,ncol=4,byrow=FALSE)
+#Display the matrix
+Mat1
+#. Output the first row of Mat1.
+Mat1[1,]
+#Output the element in the 2 row and 3 column.
+Mat1[2,3]
+#Find the inverse of matrix A.
+# Using ifelse() to check the conditions
+result <- ifelse(nrow(Mat1) == ncol(Mat1), 
+                 ifelse(det(Mat1) != 0, 
+                        list(solve(Mat1)), 
+                        "Matrix is singular and cannot be inverted."), 
+                 "Matrix is not square and cannot be inverted.")
+
+# Print the result
+if (is.list(result)) {
+  # This is to print the inverse matrix
+  print(result[[1]]) 
+} else {
+  # This prints the error message
+  print(result) 
+}
+#If a matrix is not square we cannot find the inverse
+```
+```{r}
+#R chunk 5
+#Input the matrix in r and name it mat2
+data2<-c(3,3,2,1,1,4,1,1,0,0,1,5,1,2,2)
+data2
+mat2<-matrix(data2,nrow=5,ncol=3,byrow=FALSE)
+mat2
+#Label the columns of mat2 as ”Gold”, ”Silver” and Bronze respectively. Output the
+#matrix with column labels.
+# Label the columns
+colnames(mat2)<-c("Gold","Silver","Bronze")
+#Output the matrix with column labels
+mat2
+# Label the rows of mat2 as ”United States”, ”Great Britain”, ”Canada”, ”Russia” and
+#”Switzerland” respectively. Output the matrix with column and row labels.
+# Label the columns
+rownames(mat2)<-c("United States", "Great Britain", "Canada", "Russia","Switzerland")
+#Output the matrix with row labels
+mat2
+#Output the first row of the matrix.
+mat2[1,]
+# Output the dimension of your matrix
+dim(mat2)
+```
+```{r}
+#R chunk 6
+# For the sequence of numbers from 1 to 9 create two matrices in R
+# using ”rbind” function.
+# i. Create the matrix using rbind (row-binding)
+mat_rbind <- rbind(c(1, 2, 3), c(4, 5, 6), c(7, 8, 9))
+# Output the matrix created using rbind
+print(mat_rbind)
+# using ”cbind” function.
+# ii. Create the matrix using cbind (column-binding)
+mat_cbind <- cbind(c(1, 4, 7), c(2, 5, 8), c(3, 6, 9))
+# Output the matrix created using cbind
+print(mat_cbind)
+```
